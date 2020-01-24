@@ -215,7 +215,7 @@ def main():
         index_start = args.index_start
     index_end = None
     if args.index_end:
-        index_start = args.index_end
+        index_end = args.index_end
 
     session = Session(target=Target(connection=SocketConnection(host, port, proto=protocol)), receive_data_after_fuzz=True,
                       restart_callbacks=[], pre_send_callbacks=[cb_reset_headers], post_test_case_callbacks=[],
@@ -273,7 +273,7 @@ def main():
     s_string("55809")
     s_static("\r\n")
     s_static("Blocksize: ")
-    s_dword(1000, output_format="ascii") # TODO: what won't break the protocol?
+    s_dword(1000, output_format="ascii")
     s_static("\r\n")
     s_static("Cache-Control: ")
     s_string("no-cache")
@@ -285,6 +285,8 @@ def main():
 
     init_rtsp_method("teardown", host, port, media_path)
     s_session_header()
+    s_static("Test: ")
+    s_string("Test")
     s_static("\r\n")
     s_static("\r\n")
 
@@ -360,7 +362,7 @@ def main():
     with s_block("body"):
         s_random("", 0, 4096)
 
-    init_rtsp_method("announce", host, port, media_path)
+    init_rtsp_method("announce", host, port, "announce.test")
     s_session_header()
     s_content_length_header("body")
     s_static("Content-Type: ")
