@@ -1,6 +1,6 @@
 # includesec-boofuzz-rtsp
 
-Boofuzz-RTSP is a [boofuzz](https://github.com/jtpereyda/boofuzz)-based fuzzer for [RTSP](https://tools.ietf.org/html/rfc2326) servers. It connects as a client to target RTSP servers and fuzzes messages or sequences of messages. It's inital development by Include Security was sponsored by the Mozilla Open Source Support (MOSS) awards program (https://www.mozilla.org/en-US/moss/). It is provided as free and open unsupported software for the greater good of the maintainers and authors of RTSP services.
+Boofuzz-RTSP is a [boofuzz](https://github.com/jtpereyda/boofuzz)-based fuzzer for [RTSP](https://tools.ietf.org/html/rfc2326) servers. It connects as a client to target RTSP servers and fuzzes messages or sequences of messages. It's inital development by Include Security was sponsored by the [Mozilla Open Source Support (MOSS) awards program](https://www.mozilla.org/en-US/moss/). It is provided as free and open unsupported software for the greater good of the maintainers and authors of RTSP services.
 
 # Usage
 
