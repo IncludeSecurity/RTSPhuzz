@@ -20,6 +20,13 @@ The code supports fuzzing every client to server message defined in the RTSP pro
 Header values and message bodies are given reasonable default values in order to hopefully allow successful fuzzing of later messages in a sequence of messages. In some cases, multiple versions of the same method are defined; one is intended to have better values for a sequence of messages, the other intended to cover more headers.
 The RTSP protocol's `CSeq`, `Session`, and `Content-Length` headers are special cases. `CSeq` is a sequence counter, and is incremented with each message in a sequence. The `Session` header value is recorded from message responses, and reflected in subsequent requests. The `Content-Length` header is set to the correct value for messages with a body.
 
+**TODO 2: Quick mention about fuzzing frameworks and why boofuzz made sense to use for this (two to five sentences)**
+
+# Prior Work
+
+**TODO: Talk about the two other RTSP fuzzers about how they work, and how our fuzzer might be better/different than theirs. (two to eight sentences)**
+
+
 # Limitations / Potential Improvements
 
 The code currently doesn't implement monitoring or restarting of the target.
