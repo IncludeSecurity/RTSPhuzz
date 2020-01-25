@@ -13,6 +13,7 @@ In addition, a single method can be fuzzed, and the range of test cases can be s
 ```boofuzz-rtsp.py --host target.server.host --port 554 --path test/media/file.mp3 --method play --index-start 100 --index-end 150```
 
 Boofuzz will open a web interface on localhost, and will record results locally.
+**TODO: can we point to BuzzFuzz docs that explain this? Will it run indefinitely even in the case of server TCP sock becoming unresponsive? When should a user stop the fuzzer from running? Any system requirements (pip, python3, RAM, etc.) for running this fuzzer?**
 
 # Design
 
@@ -20,7 +21,7 @@ The code supports fuzzing every client to server message defined in the RTSP pro
 Header values and message bodies are given reasonable default values in order to hopefully allow successful fuzzing of later messages in a sequence of messages. In some cases, multiple versions of the same method are defined; one is intended to have better values for a sequence of messages, the other intended to cover more headers.
 The RTSP protocol's `CSeq`, `Session`, and `Content-Length` headers are special cases. `CSeq` is a sequence counter, and is incremented with each message in a sequence. The `Session` header value is recorded from message responses, and reflected in subsequent requests. The `Content-Length` header is set to the correct value for messages with a body.
 
-**TODO 2: Quick mention about fuzzing frameworks and why boofuzz made sense to use for this (two to five sentences)**
+**TODO: Quick mention about fuzzing frameworks and why boofuzz made sense to use for this (two to five sentences)**
 
 # Prior Work
 
