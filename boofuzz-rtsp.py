@@ -184,6 +184,7 @@ def main():
             "get_parameter": ["setup", "get_parameter"],
             "set_parameter": ["setup", "set_parameter"],
             "set_parameter.encoding": ["setup", "set_parameter2"],
+            "set_parameter.content-length": ["setup", "set_parameter3"],
             "announce": ["setup", "announce"],
             "record": ["setup", "record"]
             }
@@ -362,6 +363,14 @@ def main():
     with s_block("body"):
         s_random("", 0, 4096)
 
+    init_rtsp_method("set_parameter", host, port, media_path, name_suffix="3")
+    s_session_header()
+    s_content_length_header("body", fuzzable=True)
+    s_static("Content-Type: text/parameters\r\n")
+    s_static("\r\n")
+    with s_block("body"):
+        s_static("A" * 4096)
+
     init_rtsp_method("announce", host, port, "announce.test")
     s_session_header()
     s_content_length_header("body")
@@ -396,6 +405,7 @@ def main():
     session.connect(s_get("setup"), s_get("get_parameter"), callback=cb_update_headers)
     session.connect(s_get("setup"), s_get("set_parameter"), callback=cb_update_headers)
     session.connect(s_get("setup"), s_get("set_parameter2"), callback=cb_update_headers)
+    session.connect(s_get("setup"), s_get("set_parameter3"), callback=cb_update_headers)
     session.connect(s_get("setup"), s_get("announce"), callback=cb_update_headers)
     session.connect(s_get("setup"), s_get("record"), callback=cb_update_headers)
 
