@@ -14,7 +14,7 @@ In addition, a single method can be fuzzed, and the range of test cases can be s
 
 The `gdb-restarter.py` script may be useful for restarting the target and storing cores. Use it like this:
 
-```gdb -q -k gdb-restarter.py [target-rtsp-server]```
+```gdb -q -x gdb-restarter.py [target-rtsp-server]```
 
 Boofuzz will open a web interface on localhost port 26000, and will record results locally in a `boofuzz-results` directory. The web interface can be re-opened for the database from a previous run with boofuzz's `boo` tool:
 
