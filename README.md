@@ -16,6 +16,8 @@ The `gdb-restarter.py` script may be useful for restarting the target and storin
 
 ```gdb -q -x gdb-restarter.py [target-rtsp-server]```
 
+Compiling targets with [Address Sanitizer is also useful](https://clang.llvm.org/docs/AddressSanitizer.html)
+
 The Boofuzz framework will open a web interface on localhost port 26000, and will record results locally in a `boofuzz-results/` directory. The web interface can be re-opened for the database from a previous run with Boofuzz's `boo` tool:
 
 ```boo open <run-*.db>```
