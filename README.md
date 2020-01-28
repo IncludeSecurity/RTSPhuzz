@@ -1,6 +1,6 @@
 # RTSPhuzz
 
-RTSPhuzz is a [boofuzz](https://github.com/jtpereyda/boofuzz)-based fuzzer for [RTSP](https://tools.ietf.org/html/rfc2326) servers. It connects as a client to target RTSP servers and fuzzes messages or sequences of messages. The inital development work by Include Security was sponsored by the [Mozilla Open Source Support (MOSS) awards program](https://www.mozilla.org/en-US/moss/). It is provided as free and open unsupported software for the greater good of the maintainers and authors of RTSP services.
+RTSPhuzz is a [boofuzz](https://github.com/jtpereyda/boofuzz)-based fuzzer for [RTSP](https://tools.ietf.org/html/rfc2326) servers. It connects as a client to target RTSP servers and fuzzes messages or sequences of messages. The inital development work by Include Security was sponsored by the [Mozilla Open Source Support (MOSS) awards program](https://www.mozilla.org/en-US/moss/). It is provided as free and open unsupported software for the greater good of the maintainers and authors of RTSP services -- FOSS and COTS alike!
 
 # Usage
 
@@ -40,7 +40,9 @@ RtspFuzzer uses the Peach fuzzing framework to fuzz RTSP responses, however it t
 
 StreamFUZZ is a Python script that does not utilize a fuzzing framework. Similar to our fuzzer, it fuzzes different parts of RTSP messages and sends them to a server. However, it is more simplistic; it doesn't fuzz as many messages or header fields as our fuzzer, it does not account for the types of the fields it fuzzes, and it does not keep track of sesisons for fuzzing sequences of messages.
 
-# Limitations / Potential Improvements
+# Limitations / Future Improvements
+
+This is a v1 release, we encourage you to think of ways to improve this tool and make it better. We will accept PRs and shout-outs for any bugs you find with this tool (@includesecurity).
 
 The code currently doesn't implement monitoring or restarting of the target, although an example GDB controlling Python script is provided with this tool as a base to form your own fuzzing harness enviornement. 
 
