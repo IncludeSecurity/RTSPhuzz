@@ -12,21 +12,31 @@ In addition, a single method can be fuzzed, and the range of test cases can be s
 
 ```boofuzz-rtsp.py --host target.server.host --port 554 --path test/media/file.mp3 --method play --index-start 100 --index-end 150```
 
-Boofuzz will open a web interface on localhost, and will record results locally.
-**TODO: can we point to BuzzFuzz docs that explain this? Will it run indefinitely even in the case of server TCP sock becoming unresponsive? When should a user stop the fuzzer from running? Any system requirements (pip, python3, RAM, etc.) for running this fuzzer?**
+The `gdb-restarter.py` script may be useful for restarting the target and storing cores. Use it like this:
+
+```gdb -q -k gdb-restarter.py [target-rtsp-server]```
+
+Boofuzz will open a web interface on localhost port 26000, and will record results locally in a `boofuzz-results` directory. The web interface can be re-opened for the database from a previous run with boofuzz's `boo` tool:
+
+```boo open <run-*.db>```
+
+For more information, see [boofuzz's documentation](https://boofuzz.readthedocs.io/en/stable/user/quickstart.html).
 
 # Design
 
 The code supports fuzzing every client to server message defined in the RTSP protocol (RFC 2326.) Most of the protocol's supported headers are distributed amongst the fuzzed methods such that each is fuzzed in at least one message, but not everywhere in order to reduce redundant fuzzing. The `OPTIONS` message was chosen to fuzz all of the attributes present in first line of a request.
+
 Header values and message bodies are given reasonable default values in order to hopefully allow successful fuzzing of later messages in a sequence of messages. In some cases, multiple versions of the same method are defined; one is intended to have better values for a sequence of messages, the other intended to cover more headers.
 The RTSP protocol's `CSeq`, `Session`, and `Content-Length` headers are special cases. `CSeq` is a sequence counter, and is incremented with each message in a sequence. The `Session` header value is recorded from message responses, and reflected in subsequent requests. The `Content-Length` header is set to the correct value for messages with a body.
 
-**TODO: Quick mention about fuzzing frameworks and why boofuzz made sense to use for this (two to five sentences)**
+The boofuzz fuzzing framework was chosen to leverage its built-in mutations, logging, and web interface. The use of boofuzz also makes the fuzzer mostly deterministic; boofuzz will iterate through all of its mutations of every fuzzable part of the defined protocol. The data that will change most commonly between executions will be the `Session` header, which is reflected from a server response header.
 
 # Prior Work
+We are aware of two existing RTSP fuzzers, [StreamFUZZ](https://github.com/rabimba/StreamFUZZ) and [RtspFuzzer](https://github.com/iSECPartners/RtspFuzzer). 
 
-**TODO: Talk about the two other RTSP fuzzers about how they work, and how our fuzzer might be better/different than theirs. (two to eight sentences)**
+RtspFuzzer uses the Peach fuzzing framework to fuzz RTSP responses, however it targets RTSP client implementations, whereas our fuzzer targets RTSP servers.
 
+StreamFUZZ is a Python script that does not utilize a fuzzing framework. Similar to our fuzzer, it fuzzes different parts of RTSP messages and sends them to a server. However, it is more simplistic; it doesn't fuzz as many messages or header fields as our fuzzer, it does not account for the types of the fields it fuzzes, and it does not keep track of sesisons for fuzzing sequences of messages.
 
 # Limitations / Potential Improvements
 
@@ -34,7 +44,8 @@ The code currently doesn't implement monitoring or restarting of the target.
 
 Using boofuzz orients this fuzzer more toward discovering bugs related to parsing the protocol or incorrect values in protocol fields. It is less suited to discovering bugs triggered by strange sequences of requests, for example.
 
-This fuzzer also only fuzzes the RTSP protocol. RTSP is intended to be used with another stream transport protocol, usually RTP; however, this fuzzer does not interact with RTP. It also doesn't fuzz SDP stream descriptions, or certain header values that support multiple formats. In addition, the `SET_PARAMETER` and `GET_PARAMETER` methods don't use real-world parameters.
+This fuzzer also only fuzzes the RTSP protocol. RTSP is intended to be used with another stream transport protocol, usually RTP; however, this fuzzer does not interact with RTP. It also doesn't fuzz SDP stream descriptions, or certain header values that support multiple formats. 
+
+In addition, the `SET_PARAMETER` and `GET_PARAMETER` methods don't use real-world parameters. The parameter names for `SET_PARAMETER` and `GET_PARAMETER` are not defined in the RTSP specification, and different RTSP servers support different parameters, or don't support any parameters for these methods.
 
 Finally, the RTSP protocol supports interleaved RTP stream data on the same transport (e.g. TCP) as the RTSP messages. This feature hasn't currently been implemented.
-
