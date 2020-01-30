@@ -26,7 +26,7 @@ For more information, see [boofuzz's documentation](https://boofuzz.readthedocs.
 
 # Design
 
-The code supports fuzzing every client to server message defined in the RTSP protocol (RFC 2326.) Most of the protocol's supported headers are distributed amongst the fuzzed methods such that each is fuzzed in at least one message, but not everywhere in order to reduce redundant fuzzing. The `OPTIONS` message was chosen to fuzz all of the attributes present in first line of a request.
+The code supports fuzzing all client to server directed messages defined in the RTSP protocol [(RFC 2326.)](https://tools.ietf.org/html/rfc2326) Most of the protocol's supported headers are distributed amongst the fuzzed methods such that each is fuzzed in at least one message, but not everywhere in order to reduce redundant fuzzing. The `OPTIONS` message was chosen to fuzz all of the attributes present in first line of a request.
 
 Header values and message bodies are given reasonable default values in order to hopefully allow successful fuzzing of later messages in a sequence of messages. In some cases, multiple versions of the same method are defined; one is intended to have better values for a sequence of messages, the other intended to cover more headers.
 The RTSP protocol's `CSeq`, `Session`, and `Content-Length` headers are special cases. `CSeq` is a sequence counter, and is incremented with each message in a sequence. The `Session` header value is recorded from message responses, and reflected in subsequent requests. The `Content-Length` header is set to the correct value for messages with a body.
