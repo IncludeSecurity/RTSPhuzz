@@ -38,13 +38,13 @@ We are aware of two existing RTSP fuzzers, [StreamFUZZ](https://github.com/rabim
 
 RtspFuzzer uses the Peach fuzzing framework to fuzz RTSP responses, however it targets RTSP client implementations, whereas our fuzzer targets RTSP servers.
 
-StreamFUZZ is a Python script that does not utilize a fuzzing framework. Similar to our fuzzer, it fuzzes different parts of RTSP messages and sends them to a server. However, it is more simplistic; it doesn't fuzz as many messages or header fields as our fuzzer, it does not account for the types of the fields it fuzzes, and it does not keep track of sesisons for fuzzing sequences of messages.
+StreamFUZZ is a Python script that does not utilize a fuzzing framework. Similar to our fuzzer, it fuzzes different parts of RTSP messages and sends them to a server. However, it is more simplistic; it doesn't fuzz as many messages or header fields as our fuzzer, it does not account for the types of the fields it fuzzes, and it does not keep track of sessions for fuzzing sequences of messages.
 
 # Limitations / Future Improvements
 
 This is a v1 release, we encourage you to think of ways to improve this tool and make it better. We will accept PRs and shout-outs for any bugs you find with this tool (@includesecurity).
 
-The code currently doesn't implement monitoring or restarting of the target, although an example GDB controlling Python script is provided with this tool as a base to form your own fuzzing harness enviornement. 
+The code currently doesn't implement monitoring or restarting of the target, although an example GDB controlling Python script is provided with this tool as a base to form your own fuzzing harness environment. 
 
 Using boofuzz orients this fuzzer more toward discovering bugs related to parsing the protocol or incorrect values in protocol fields. It is less suited to discovering bugs triggered by strange sequences of requests, for example.
 
