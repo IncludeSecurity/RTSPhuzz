@@ -48,7 +48,9 @@ python3 RTSPhuzz.py --host target.server.host --port 554 --path test/media/file.
 
 
 ### Modifiying RTSPServer.cpp to Create a Crash Test Case
-Within the live/ directory there is a sub-directory containing many files including RTSPServer.cpp.  In this file on line 406 there is a function handeCmd_bad() that handles bad requests.  Inserting the following code will cause a crash whenever a bad request is issued.
+We can create a contrived crash case to ensure the fuzzer is exercising the protocol and that the server target is setup correctly to capture crashes for root cause analysis.
+
+To do so first we'll explore the file live/liveMedia/RTSPServer.cpp.  In this file on line 406 there is a function handeCmd_bad() that handles bad requests.  Inserting the following code will cause a crash whenever a bad request is issued.
 ```
   int a = 1;
   int buf[10];
