@@ -6,7 +6,7 @@
 * Get latest source code for live555
   * wget http://www.live555.com/liveMedia/public/live555-latest.tar.gz
 * The code is extracted to the live/ directory where the config files live
-  * Create a new config file config.fuzz.  The below file contents were based off of the existing config.linux with a few modifications:
+  * Create a new config file config.fuzz.  The below file contents were based off of the existing config.linux with a few modifications to add ASAN and debugging symbols:
 
 ```
 COMPILE_OPTS =          $(INCLUDES) -I/usr/local/include -I. -O2 -DSOCKLEN_T=socklen_t -D_LARGEFILE_SOURCE=1 -D_FILE_OFFSET_BITS=64 -fsanitize=address -g3
