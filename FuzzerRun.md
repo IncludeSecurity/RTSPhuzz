@@ -1,6 +1,7 @@
 # Fuzzing Live555MediaServer
 
 ## Building Live555MediaServer with ASAN
+* The following was performed on an Ubuntu 18.04 host
 * Install gcc, g++, libssl-dev, make
 * Get latest source code for live555
   * wget http://www.live555.com/liveMedia/public/live555-latest.tar.gz
