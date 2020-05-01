@@ -43,7 +43,7 @@ To fuzz, simply start the server:
 * Note: Running as a regular user will default to port 8554 rather than 554
 Then start the fuzzer:
 ```
-python3 boofuzz-rtsp.py --host target.server.host --port 554 --path test/media/file.mp3
+python3 RTSPhuzz.py --host target.server.host --port 554 --path test/media/file.mp3
 ```
 
 
