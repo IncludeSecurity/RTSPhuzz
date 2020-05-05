@@ -36,7 +36,7 @@ make
 * The live555MediaServer binary will be at mediaServer/live555MediaServer
 
 ### Fuzzing
-To fuzz, the server can be run in the following manner:
+To setup a basic fuzz run (not time nor parallelism optimized), the server can be run in the following manner:
 ```
 while true; do ./live555MediaServer; sleep 65; done;
 ```
