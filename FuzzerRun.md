@@ -36,10 +36,11 @@ make
 * The live555MediaServer binary will be at mediaServer/live555MediaServer
 
 ### Fuzzing
-To setup a basic fuzz run (not time nor parallelism optimized), the server can be run in the following manner:
+To setup a basic fuzz run, the server can be run in the following manner:
 ```
 while true; do ./live555MediaServer; sleep 65; done;
 ```
+Note: For this basic example case time optimization, parallelism, and adjusting the code to use SO_REUSEADDR via setsockopt(2) are not considered.
 
 After the process crashes, the connection will be left in state TIME_WAIT, which times out after 60 seconds.  If the process is restarted before the connection times out, the server will not be able to bind to the listening port.
 * Note: Running as a regular user will default to port 8554 rather than 554
