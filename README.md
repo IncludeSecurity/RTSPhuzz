@@ -2,7 +2,7 @@
 
 RTSPhuzz is a [boofuzz](https://github.com/jtpereyda/boofuzz)-based fuzzer for [RTSP](https://tools.ietf.org/html/rfc2326) servers. It connects as a client to target RTSP servers and fuzzes messages or sequences of messages. The inital development work by Include Security was sponsored by the [Mozilla Open Source Support (MOSS) awards program](https://www.mozilla.org/en-US/moss/). It is provided as free and open unsupported software for the greater good of the maintainers and authors of RTSP services -- FOSS and COTS alike!
 
-If you'd like to contribute to the project please send issues and PRs on over, or shoot us an email (info.at.includesecurity.com) if you've found this software useful for your projects regardless if you are a hobbiest or work in the commercial world.
+If you'd like to contribute to the project please send issues and PRs on over, or give us a shout (info.at.includesecurity.com or @IncludeSecurity) if you've found this software useful for your projects regardless if you are a hobbiest or work in the commercial world.
 
 # Usage
 
@@ -18,7 +18,7 @@ The `gdb-restarter.py` script may be useful for restarting the target and storin
 
 ```gdb -q -x gdb-restarter.py [target-rtsp-server]```
 
-Compiling targets with [Address Sanitizer is also useful](https://clang.llvm.org/docs/AddressSanitizer.html)
+Compiling targets with [Address Sanitizer is also useful](https://clang.llvm.org/docs/AddressSanitizer.html) and we have additional documentation of how to setup up a fuzzer run [on the target Live555](FuzzerRun.md)
 
 The Boofuzz framework will open a web interface on localhost port 26000, and will record results locally in a `boofuzz-results/` directory. The web interface can be re-opened for the database from a previous run with Boofuzz's `boo` tool:
 
@@ -44,7 +44,7 @@ StreamFUZZ is a Python script that does not utilize a fuzzing framework. Similar
 
 # Limitations / Future Improvements
 
-This is a v1 release, we encourage you to think of ways to improve this tool and make it better. We will accept PRs and shout-outs for any bugs you find with this tool (@includesecurity).
+This is a v1 release, we encourage you to think of ways to improve this tool and make it better. We will accept PRs and shout-outs for any bugs you find with this tool (info.at.includesecurity.com or @includesecurity).
 
 The code currently doesn't implement monitoring or restarting of the target, although an example GDB controlling Python script is provided with this tool as a base to form your own fuzzing harness environment. 
 
