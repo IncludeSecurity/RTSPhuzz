@@ -5,10 +5,14 @@ from boofuzz.ifuzzable import *
 import boofuzz.helpers
 import re
 import argparse
+import os
 
 # Global sequence counter & session id for persisting state between requests
 cseqCounter = 0
 sessionId = None
+
+# Global restart command
+restartCommand = None
 
 # Renders Session header with value reflected from a response, or a string fuzz primitive
 class SessionHeader(IFuzzable):
@@ -46,7 +50,10 @@ class SessionHeader(IFuzzable):
         return not_finished_yet
 
     def num_mutations(self):
-        return self.string.num_mutations()
+        if not self._fuzzable:
+            return 0
+        else:
+            return self.string.num_mutations()
 
     def render(self):
         if self._fuzzable and (self.string.mutant_index != 0) and not self._fuzz_complete:
@@ -56,6 +63,8 @@ class SessionHeader(IFuzzable):
 
     def reset(self):
         self.string.reset()
+        self._fuzz_complete = False
+        self._mutant_index = self.string.mutant_index
 
     def fuzzable(self):
         return self._fuzzable
@@ -100,7 +109,10 @@ class CSeqHeader(IFuzzable):
         return not_finished_yet
 
     def num_mutations(self):
-        return self.bitfield.num_mutations()
+        if not self._fuzzable:
+            return 0
+        else:
+            return self.bitfield.num_mutations()
 
     def render(self):
         if self._fuzzable and (self.bitfield.mutant_index != 0) and not self._fuzz_complete:
@@ -110,6 +122,8 @@ class CSeqHeader(IFuzzable):
 
     def reset(self):
         self.bitfield.reset()
+        self._fuzz_complete = False
+        self._mutant_index = self.bitfield.mutant_index
 
     def fuzzable(self):
         return self._fuzzable
@@ -139,6 +153,14 @@ def cb_update_headers(target, fuzz_data_logger, session, node, edge, *args, **kw
         if m:
             newSessionId = m.group(1)
             sessionId = newSessionId
+
+def cb_restart_command(target, fuzz_data_logger, session, sock, *args, **kwargs):
+    global restartCommand
+
+    if not restartCommand:
+        return
+
+    os.system(restartCommand)
 
 # RTSP-Specific protocol definition static functions
 
@@ -173,6 +195,7 @@ def init_rtsp_method(name, host, port, media_path, fuzz_everything=False, name_s
 
 
 def main():
+    global restartCommand
     method_paths = {
             "options": ["options"],
             "describe": ["describe"],
@@ -197,6 +220,7 @@ def main():
     argparser.add_argument("--method", choices=method_paths.keys())
     argparser.add_argument("--index-start", type=int)
     argparser.add_argument("--index-end", type=int)
+    argparser.add_argument("--restart-command")
     args = argparser.parse_args()
 
     host = "127.0.0.1"
@@ -217,9 +241,11 @@ def main():
     index_end = None
     if args.index_end:
         index_end = args.index_end
+    if args.restart_command:
+        restartCommand = args.restart_command
 
     session = Session(target=Target(connection=SocketConnection(host, port, proto=protocol)), receive_data_after_fuzz=True,
-                      restart_callbacks=[], pre_send_callbacks=[cb_reset_headers], post_test_case_callbacks=[],
+                      restart_callbacks=[cb_restart_command], pre_send_callbacks=[cb_reset_headers], post_test_case_callbacks=[],
                       index_start=index_start, index_end=index_end)
 
     init_rtsp_method("options", host, port, media_path, fuzz_everything=True)
@@ -414,6 +440,7 @@ def main():
         session.fuzz_single_node_by_path(path)
     else:
         session.fuzz()
+        pass
 
 if __name__ == "__main__":
     main()
