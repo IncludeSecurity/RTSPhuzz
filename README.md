@@ -2,6 +2,8 @@
 
 RTSPhuzz is a [boofuzz](https://github.com/jtpereyda/boofuzz)-based fuzzer for [RTSP](https://tools.ietf.org/html/rfc2326) servers. It connects as a client to target RTSP servers and fuzzes messages or sequences of messages. The inital development work by Include Security was sponsored by the [Mozilla Open Source Support (MOSS) awards program](https://www.mozilla.org/en-US/moss/). It is provided as free and open unsupported software for the greater good of the maintainers and authors of RTSP services -- FOSS and COTS alike!
 
+If you'd like to contribute to the project please send issues and PRs on over, or shoot us an email (info.at.includesecurity.com) if you've found this software useful for your projects regardless if you are a hobbiest or work in the commercial world.
+
 # Usage
 
 Specify the host, port, and RTSP path to a media file on the target server:
