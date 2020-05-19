@@ -48,7 +48,10 @@ Then start the fuzzer:
 ```
 python3 RTSPhuzz.py --host target.server.host --port 554 --path test/media/file.mp3
 ```
-
+The fuzzer can also be given a command to allow boofuzz to restart the target, in this case waiting for the service to restart if it was run in a while loop as above:
+```
+python3 ./RTSPhuzz.py --host 127.0.0.1 --port 8554 --path test/fuzz.mp3 --restart-command '(pkill -9 live555; sleep 70)'
+```
 
 ### Modifiying RTSPServer.cpp to Create a Crash Test Case
 We can create a contrived crash case to ensure the fuzzer is exercising the protocol and that the server target is setup correctly to capture crashes for root cause analysis.
