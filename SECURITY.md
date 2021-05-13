@@ -5,5 +5,5 @@ We're not planning on making major releases of this software, just incremental u
 
 ## Reporting a Vulnerability
 
-To report a vuln in this software, please create an issue in github. We should get back to you in a timely manner and PRs to fix any found vulns are VERY much appriciated.
+To report a vuln in this software, please create an issue in github. We should get back to you in a timely manner and PRs to fix any found vulns are VERY much appreciated.
 
