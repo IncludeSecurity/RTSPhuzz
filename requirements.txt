@@ -9,7 +9,7 @@ cryptography==3.3.2
 dnspython==1.16.0
 Flask==1.1.1
 future==0.18.2
-impacket==0.9.20
+impacket==0.9.23
 itsdangerous==1.1.0
 Jinja2==2.11.3
 ldap3==2.5.1
