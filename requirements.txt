@@ -5,7 +5,7 @@ cffi==1.13.2
 Click==7.0
 colorama==0.4.3
 crc32c==2.0
-cryptography==3.2
+cryptography==3.3.2
 dnspython==1.16.0
 Flask==1.1.1
 future==0.18.2
