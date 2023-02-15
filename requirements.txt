@@ -25,4 +25,4 @@ pyparsing==2.4.6
 pyserial==3.4
 six==1.14.0
 tornado==5.1.1
-Werkzeug==0.16.0
+Werkzeug==2.2.3
