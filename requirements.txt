@@ -7,7 +7,7 @@ colorama==0.4.3
 crc32c==2.0
 cryptography==3.3.2
 dnspython==1.16.0
-Flask==1.1.1
+Flask==2.3.2
 future==0.18.2
 impacket==0.9.23
 itsdangerous==1.1.0
